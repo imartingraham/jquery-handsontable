@@ -43,6 +43,28 @@ Maybe you want to show some default data. Use the `handsontable('loadData', data
   $("#dataTable").handsontable("loadData", data);
 </script>
 ```
+You can also add attributes onto the cells by using an array of objects
+```html
+<script>
+	var data = [
+			[
+				{ value : '' },
+				{ value : 'Kia', 'header' }
+				{ value : 'Nissan', 'header' }
+				{ value : 'Toyota', 'header' }
+				{ value : 'Honda', 'header' }
+			],
+			[
+				{ value : '2008', 'class' : 'year' },
+				{ value : 10, 'class' : 'kia'},
+				{ value : 11, 'class' : 'nissan'},
+				{ value : 12, 'class' : 'toyota'},
+				{ value : 13, 'class' : 'honda'},
+			],
+			
+	]
+</script>
+```
 
 ## Changelog
 

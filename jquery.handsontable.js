@@ -2145,21 +2145,31 @@ var Handsontable = { //class namespace
         }
 
         var td = grid.getCellAtCoords({row: row, col: col});
-        switch (typeof value) {
-          case 'string':
-            break;
 
-          case 'number':
-            value += '';
-            break;
-
-          default:
-            value = '';
+        if($.isPlainObject(value)){
+          var elValue = value.value + '';
+        }else if (typeof value == 'string'){
+          var elValue = value
+        }else if(typeof value == 'number'){
+          var elValue = value += '';
+        }else{
+          var elValue = '';
         }
+
         if (!allowHtml) {
-          value = value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); //escape html special chars
+          elValue = elValue.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); //escape html special chars
         }
-        td.innerHTML = value.replace(/\n/g, '<br/>');
+
+        td.innerHTML = elValue.replace(/\n/g, '<br/>');
+
+        if($.isPlainObject(value)){
+          $.each(value, function(index, v){
+            if(index !== 'value'){
+              $(td).attr(index, v);
+            }
+          });
+        }
+
         self.minWidthFix(td);
         datamap.set(row, col, value);
         grid.updateLegend({row: row, col: col});
@@ -2272,7 +2282,7 @@ var Handsontable = { //class namespace
         if (priv.fillHandle && settings.fillHandle === false) {
           autofill.disable();
         }
-        else if (!priv.fillHandle && settings.fillHandle !== false) {
+        else if (!priv.fillHandle && settings.fillHandle === true) {
           autofill.init();
         }
       }
