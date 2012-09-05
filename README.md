@@ -62,7 +62,8 @@ You can also add attributes onto the cells by using an array of objects
 				{ value : 13, 'class' : 'honda'},
 			],
 			
-	]
+	];
+	$('#dataTable').handsontable('loadData', data);
 </script>
 ```
 
